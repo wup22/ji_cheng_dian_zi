@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+#app{height: 100%;width: 100%;}
+	#header{ width:100%;height: 100%;}
+	/*菜单区*/
+	#header .conent{padding-left:550px;background: #102b78 url(../img/title.png?v=201809211619107) no-repeat;width: 100%;height:65px;}
+	/*ul>li*/
+	#header .conent .menu{width:60px;height: 60px;background-size:100% 100%;float:left;margin-left:10px;cursor: pointer;position: relative;}
+	/*li>div文字说明*/
+	#header .conent .explain{font-size:12px;padding-top:42px;text-align: center;color:#fff;}
+	/*下拉列表*/
+	#header .menu_nav{width:130px;background:#102b78;border-radius:0 0 0 15px;z-index: 1000 !important;}
+	/*下拉列表中的li*/
+	#header .conent .menu .menu_nav .menu_nav_1{line-height: 36px;font-size: 12px;color:#fff;padding-left:10px;position: relative;z-index: 1000 !important;opacity: 1;background:#102b78;}
+	/*下拉列表中的li(最后一个)*/
+	#header .conent .menu .menu_nav li:last-of-type{border-radius:0 0 0 15px;}
+	/*下拉列表中li中的div*/
+	#header .conent .menu .menu_nav .menu_nav_1 .menu_nav_1_child{}
+	/*tabs*/
+	#header .tabs{width: 100%;height:calc(100% - 65px);z-index:0;}/*tabs*/
+
+
+
+
+/*element-ui样式*/
+	#tab-2 > span{display: none !important;}
+	#tab-1 > span{display: none !important;}
+	#tab-3 > span{display: none !important;}	
+	#header > div.tabs > div > div.el-tabs__header{height:34px; background:#102b78;margin:0;}
+	/*scllor外div*/
+	#header .tabs .el-tabs__header > .el-tabs__nav-wrap{height:34px;border:0 !important;}
+	/*左右按钮*/
+	#header .tabs .el-tabs__header.is-top > .el-tabs__nav-wrap > span{height: 100%;padding: 0;line-height: 34px;border:0 !important;}
+	/*tabs标签父级*/
+	#header .tabs .el-tabs__header .el-tabs__nav{height: 100%;padding: 0;line-height: 34px;border:0 !important;}
+	/*tabs标签内容*/
+	#header .tabs  .el-tabs__header .el-tabs__item{width:140px; height: 25px;font-size: 12px; padding: 0 0px 0 20px;line-height: 25px;color:#fff;margin:0;border:0 !important;background: url(../img/tabs/tab_panel_item_back.png);background-size:100% 100%;margin-left:-8px;position: relative;}
+	/*第一个tabs*/
+	#header .tabs #tab-1{background:url(../img/tabs/tab_item_first_back.png)no-repeat !important; background-size:100% 100%;margin:0 -10px 0 0 ;}
+	/*tabs下的content*/
+	#header .tabs .el-tabs__header .el-tabs__content{border:10px solid red !important;}
+	/*tabs标签内的关闭按钮*/
+	#header .tabs  .el-tabs__header .el-tabs__item span{position: absolute;right: 15px;top:10px;}
+	#header > div.tabs > div{width: 100%;height: 100%;}
+	#header > div.tabs > div > div.el-tabs__content{width:100%;height:calc(100% - 34px)!important;}
+	#header > div.tabs > div > div.el-tabs__content > div{width: 100%;height: 100% !important;}
+	#header > div.tabs > div > div.el-tabs__content > div >.tabs_con{width: 100%;height: 100% !important;}
+	#pane-1{}
+
+	.is-active{
+		color:yellow !important;font-size: 13px !important;display: block !important;
+	}
+
+
+/*----------------------------------------------------------------------------------------------------------*/
+/*自定义tabs*/
+	#header .wp_tabs{width: 100%;height:calc(100% - 65px);z-index:0;background-image:url(../img/main_back.png);background-size:100% 100%;}
+	/*tabs父级div*/
+	#header .wp_tabs .wp_tabs_1{width: 100%; height:34px;background:#102b78;padding-top:9px;overflow:hidden;}
+	/*tabs下的ul*/
+	#header .wp_tabs .wp_tabs_1 .tabs_ul{height:100%;width: 1000%;}
+	/*tabs标签内容*/
+	#header .wp_tabs .wp_tabs_1 .tabs_li{width:140px; height:100%;font-size: 12px; padding: 0 0px 0 20px;line-height: 25px;color:#fff;margin:0;border:0;background-image: url(../img/tabs/tab_panel_item_back.png);background-size:100% 100%;margin-left:-8px;position: relative;float:left;cursor: pointer;}
+	/*第一个tabs*/
+	#header .wp_tabs .wp_tabs_1 .tabs_ul > li:first-child{background:url(../img/tabs/tab_item_first_back.png)no-repeat !important; background-size:100% 100%;margin:0 -10px 0 0 ;}
+	/*tabs标签内的关闭按钮*/
+	#header .wp_tabs .wp_tabs_1 .tabs_li > i{position: absolute;right: 15px;color:#d00;cursor: pointer;}
+
+    #header .wp_tabs .wp_tabs_con{width: 100%;height: calc(100% - 34px);}
+	
+
+
+
+
+

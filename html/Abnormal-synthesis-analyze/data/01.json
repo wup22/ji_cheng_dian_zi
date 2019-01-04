@@ -1,0 +1,28 @@
+{
+	"EMS":[
+		{"name": "881","position": 999},
+		{"name": "ems","position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99},
+		{"name": 88,"position": 99}
+	],
+	"DMS":[
+		{"name": "DMS1","position": "DMSDms"},
+		{"name": "DMS2","position": "DMSDms"},
+		{"name": "DMS3","position": "DMSDms"},
+		{"name": "DMS4","position": "DMSDms"},
+		{"name": "DMS5","position": "DMSDms"},
+		{"name": "DMS6","position": "DMSDms"},
+		{"name": "DMS7","position": "DMSDms"},
+		{"name": "DMS8","position": "DMSDms"},
+		{"name": "DMS9","position": "DMSDms"}
+	]
+}
+

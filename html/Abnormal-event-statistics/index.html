@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>异常事件统计</title>
+	<script src="../../plugins/vue/vue.min.js"></script>
+	<script src="../../plugins/jquery-3.3.1.min.js"></script>	
+	<script src="../../plugins/echarts.common.min.js"></script>
+	<script src="../../plugins/axios/dist/axios.min.js"></script>
+	
+	<!-- 时间控件layDate -->
+	<script src="../../plugins/layer-v2.3/layer/laydate/laydate.js"></script>
+	<link rel="stylesheet" href="../../plugins/layer-v2.3/layer/laydate/skins/default/laydate.css">
+	<!-- 重复样式 -->
+	<link rel="stylesheet" href="css/reset.css">
+	<!-- 自定义样式 -->
+	<link type="text/css" rel="stylesheet" href="css/index.css">
+	<!-- 字体图标 -->
+	<link rel="stylesheet" href="../../plugins/font-awesome-4.7.0/css/font-awesome.css">
+	<!-- chosen插件 -->
+	<script src="../../plugins/chosen/js/chosen.jquery.js"></script>
+	<link rel="stylesheet" href="../../plugins/chosen/css/chosen.css">
+	<!-- 多选框组件 -->
+	<script src="components/my-select2.js"></script>
+	<!-- 图表组件 -->
+	<script src="components/bar-echarts.js"></script>
+	<!-- dataTables插件 -->
+	<script src="../../plugins/dataTables/jquery.dataTables.js"></script>
+	<link rel="stylesheet" href="../../plugins/dataTables/css/jquery.dataTables.css">
+	<!-- 日期组件 -->
+	<script src="components/my-date.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div id="select">
+			<div class="select_top">				
+			  	<div class="select_item">
+				  	<div class="form-group">
+			            <label class="font-noraml">事件类型</label>
+			            <my-select2 :data-select2="region"/>	
+			        </div>
+			    </div>
+			   <!-- 日期 -->
+			    <div class="select_item">
+                        <span class="time_label">查询时间</span> 
+						<span class="time_input">
+							<my-date :date-id="usedStartTime" @gettime="mytime"/>
+						</span>
+						<i>至</i>
+						<span class="time_input">
+							<my-date :date-id="usedEndTime" @gettime="myendtime"/>
+						</span>
+                </div>
+			    <!-- 按钮 -->
+                <div class="select_btn">
+                	<a href="javascript:;" id="query_derive" class="select_query_btn" @click="getEchartsData">
+                		<i class="fa fa-search" aria-hidden="true"></i>导出
+                	</a>
+                	<a href="javascript:;" id="query_btns" class="select_query_btn" @click="getEchartsData">
+                		<i class="fa fa-file-word-o" aria-hidden="true"></i>查询
+                	</a>
+                </div>
+			</div>
+			
+	        <div class="curveDiv" style="width:100%">
+	   			<bar-echarts :op-data="opData"/>	
+          	</div> 
+        </div>
+	</div>
+</body>
+<script>
+
+Vue.prototype.$echarts = echarts ;
+Vue.prototype.$http= axios;
+	var app = new Vue({
+		el: "#app",
+		data:{
+			opData:{
+				"x":["2018-10-11","2018-10-12","2018-10-13","2018-10-14","2018-10-15"],
+				"msg":[{
+				    "name":"",
+				    "type": "bar",
+				    "data": [5, 20, 96, 10, 15]
+				}]
+			},
+			//多选框数据
+			region:["三相不平衡","缺陷","电压闪变"],
+			usedStartTime:'usedStartTime',
+			usedEndTime:'usedEndTime',
+			startTime: '',
+			endTime:''
+		},
+		mounted(){
+			
+		},	
+		methods:{
+			//获取柱状图数据
+			getEchartsData(){				
+				let url = "./data/02.json";
+				let _this = this;
+				console.log('time',this.startTime,this.endTime)
+				
+				this.$http.post(url).then(function(resolve){
+					_this.opData = resolve.data;
+					// console.log('res',_this.opData)
+				}).catch(function(err){
+					console.log(err);
+				})
+			},
+			mytime(val){
+				console.log('time',val)
+				this.startTime = val
+			},
+			myendtime(val){
+				console.log('endTime',val)
+				this.endTime = val
+			}
+		},
+		components:{barEcharts,MySelect2,MyDate}
+	})
+	
+	
+</script>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>电能质量历史数据</title>
+	<script src="../../plugins/vue/vue.min.js"></script>
+	<script src="../../plugins/jquery-3.3.1.min.js"></script>	
+	<script src="../../plugins/echarts.common.min.js"></script>
+	<script src="../../plugins/axios/dist/axios.min.js"></script>
+	
+	<!-- 时间控件layDate -->
+	<script src="../../plugins/layer-v2.3/layer/laydate/laydate.js"></script>
+	<link rel="stylesheet" href="../../plugins/layer-v2.3/layer/laydate/skins/default/laydate.css">
+	<!-- 重复样式 -->
+	<link rel="stylesheet" href="css/reset.css">
+	<!-- 自定义样式 -->
+	<link type="text/css" rel="stylesheet" href="css/index.css">
+	<!-- 字体图标 -->
+	<link rel="stylesheet" href="../../plugins/font-awesome-4.7.0/css/font-awesome.css">
+	<!-- chosen插件 -->
+	<script src="../../plugins/chosen/js/chosen.jquery.js"></script>
+	<link rel="stylesheet" href="../../plugins/chosen/css/chosen.css">
+	<!-- 多选框组件 -->
+	<script src="components/my-select.js"></script>
+	<script src="components/my-select2.js"></script>
+	<!-- 图表组件 -->
+	<script src="components/bar-echarts.js"></script>
+	<!-- dataTables插件 -->
+	<script src="../../plugins/dataTables/jquery.dataTables.js"></script>
+	<link rel="stylesheet" href="../../plugins/dataTables/css/jquery.dataTables.css">
+	<!-- 表格组件 -->
+	<script src="components/table-data.js"></script>
+	<!-- 日期组件 -->
+	<script src="components/my-date.js"></script>
+	<script src="../../js/get-data.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div id="select">
+			<div class="select_top">				
+			  	<div class="select_item">
+				  	<div class="form-group" >
+			            <label class="font-noraml">区域</label>
+			            <my-select 
+			            v-if="region.length > 0" 
+			            :data-select="region"
+			            :select-id="byRtuModelSel" 
+			            @linkage="change"/>
+			        </div>
+			    </div>
+			    <div class="select_item">
+				  	<div class="form-group">
+			            <label class="font-noraml">重要用户</label>
+			            <my-select2 :data-select2="A" :select-id="byRtuModelSel_2"/>
+			        </div>
+			    </div>
+			    <div class="select_item">
+				  	<div class="form-group">
+			            <label class="font-noraml">参数</label>
+			            <my-select2 :data-select2="C"  v-if="C.length > 0" :select-id="byRtuModelSel_3"/>
+			        </div>
+			    </div>
+			    <div class="select_item">
+                        <span class="time_label">查询时间</span> 
+                        <span class="time_input">
+							<my-date :date-id="usedStartTime" @gettime="mytime"/>
+						</span>
+						<i>至</i>
+						<span class="time_input">
+							<my-date :date-id="usedEndTime" @gettime="myendtime"/>
+						</span>
+                </div>
+                <div class="select_btn">
+                	<a href="javascript:;" id="query_derive" class="select_query_btn" @click="getEchartsData">
+                		<i class="fa fa-search" aria-hidden="true"></i>导出
+                	</a>
+                	<a href="javascript:;" id="query_btns" class="select_query_btn" @click="getTableData">
+                		<i class="fa fa-file-word-o" aria-hidden="true"></i>查询
+                	</a>
+                </div>
+			</div>
+			<div class="show_tabs_row">
+				<div class="show_tabs_span" ref="show_tabs_1" style="color:orange;" @click="table_show">表格展示</div>
+				<div class="show_tabs_span" ref="show_tabs_2" @click="echerts_show">柱状图展示</div>
+			</div>
+		
+			<div class="curveDiv" v-show="v1">
+				<table-data :op-disk-data="opDiskData" :table-id="rtuAccTable"/>
+	        </div>
+	        <div class="curveDiv" v-show="v2" style="width:100%">
+	   			<bar-echarts :op-data="opData"/>
+          	</div> 
+        </div>
+	</div>
+</body>
+<script>
+/*const Axios = axios.create({
+   baseURL: 'http://192.168.21.106:8080/bspower/a/',
+   timeout: 8000,
+    // headers: {'X-Custom-Header': 'foobar'}
+});
+Vue.prototype.$http= Axios;*/
+Vue.prototype.$echarts = echarts ;
+Vue.prototype.$axios = $ajax;
+	var app = new Vue({
+		el: "#app",
+		data:{
+			opDiskData:[{name: "1",position: "88","sss":"sd"}],
+			myChart:undefined,
+			v1:true,
+			v2:false,
+			rtuAccTable:"rtuAccTable",
+			opData:{
+				"x":["槐荫公安局","槐荫税务局","槐荫商店","槐荫工厂","槐荫小区"],
+				"msg":[{
+				    "name":"",
+				    "type": "bar",
+				    "data": [5, 20, 96, 10, 15]
+				}]
+			},
+			region:[],
+			byRtuModelSel:'byRtuModelSel',
+			byRtuModelSel_2:'byRtuModelSel_2',
+			byRtuModelSel_3:'byRtuModelSel_3',
+			//统计
+			statistics:["电压突降次数","最大电流突降比例","电流突升次数","最大电流突升比例","电流三相不平衡持续时间","停电次数,停电频率"],
+			val_1:'',
+			A:[],
+			B:[],
+			C:[],
+			usedStartTime:'usedStartTime',
+			usedEndTime:'usedEndTime',
+			startTime: '',
+			endTime:''
+		},
+		beforeCreate(){
+			/*this.$http.post('/region').then((res)=>{				
+				let flag = res.data;				
+				if(flag.code == 'OK'){
+					this.region = flag.data
+					// console.log('region',this.region)
+					// console.log(flag.msg)
+				}else{
+					console.log(flag.msg)
+				}				
+			}).catch((err)=>{
+				console.log(err);
+			});*/
+			let that = this;
+			this.$axios('/param',that.B);
+			console.log('B',this.B)
+		},
+		mounted(){
+			console.log('B',this.B)
+			//http://192.168.21.106:8080/bspower/a/importantUser?quyu=天桥区
+			/*this.$http.get('/param').then((res)=>{
+				console.log('2',res.data);
+			}).catch((err)=>{
+				console.log(err);
+			});*/
+			
+			
+		},
+		updated(){console.log('B',this.B)},
+		watch:{
+			B(v){this.C = v}
+		},
+		methods:{
+			//获取表格数据
+			getTableData(){
+				this.v1 = true;
+				this.v2 = false;
+				this.$refs.show_tabs_1.style.color = "orange";
+				this.$refs.show_tabs_2.style.color = "#bad9fb";
+				let url = "./data/01.json";
+				let _this = this;
+				this.$http.post(url).then(function(resolve){
+					_this.opDiskData = resolve.data;
+					console.log('res',_this.opDiskData)
+
+				}).catch(function(err){
+					console.log(err);
+				})
+			},
+			//获取柱状图数据
+			getEchartsData(){
+				this.v1 = false;
+				this.v2  = true;
+				this.$refs.show_tabs_1.style.color = "#bad9fb";
+				this.$refs.show_tabs_2.style.color = "orange";
+				let url = "./data/02.json";
+				let _this = this;
+				this.$http.post(url).then(function(resolve){
+					_this.opData = resolve.data;
+					console.log('res',_this.opData)
+
+				}).catch(function(err){
+					console.log(err);
+				})
+			},
+			table_show(){  //tabs按钮
+				if(this.v1 == 1){
+					this.v2 = 0;
+					
+				}else{
+					this.v1 = 1;
+					this.v2 = 0;
+					event.target.style.color = "orange";
+					this.$refs.show_tabs_2.style.color = "#bad9fb";
+				}
+			},
+			echerts_show(){
+				if(this.v2 == 1){
+					this.v1 = 0;
+				}else{
+					this.v2 = 1;
+					this.v1 = 0;
+					event.target.style.color = "orange";
+					this.$refs.show_tabs_1.style.color = "#bad9fb";
+				}
+			},	   	 	
+           change(value){
+				// console.log('value-A',value)
+				this.A = value;
+			},
+			//开始时间
+			mytime(val){
+				console.log('time',val)
+				this.startTime = val
+			},
+			//结束时间
+			myendtime(val){
+				console.log('endTime',val)
+				this.endTime = val
+			}
+		},
+		components:{barEcharts,tableData,MySelect,MySelect2,MyDate}
+	})
+	
+	
+</script>
+</html>

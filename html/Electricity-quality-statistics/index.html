@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>电能质量统计</title>
+	<script src="../../plugins/vue/vue.min.js"></script>
+	<script src="../../plugins/jquery-3.3.1.min.js"></script>	
+	<script src="../../plugins/axios/dist/axios.min.js"></script>
+	
+	<!-- 时间控件layDate -->
+	<script src="../../plugins/layer-v2.3/layer/laydate/laydate.js"></script>
+	<link rel="stylesheet" href="../../plugins/layer-v2.3/layer/laydate/skins/default/laydate.css">
+	<!-- 公共重复样式 -->
+	<link rel="stylesheet" href="css/reset.css">
+	<!-- 自定义样式 -->
+	<link type="text/css" rel="stylesheet" href="css/index.css">
+	<!-- 字体图标 -->
+	<link rel="stylesheet" href="../../plugins/font-awesome-4.7.0/css/font-awesome.css">
+	<!-- chosen插件 -->
+	<script src="../../plugins/chosen/js/chosen.jquery.js"></script>
+	<link rel="stylesheet" href="../../plugins/chosen/css/chosen.css">
+	<!-- 多选框组件 -->
+	<script src="components/my-select.js"></script>
+	<script src="components/my-select2.js"></script>
+	<!-- dataTables插件 -->
+	<script src="../../plugins/dataTables/jquery.dataTables.js"></script>
+	<link rel="stylesheet" href="../../plugins/dataTables/css/jquery.dataTables.css">
+	<!-- 表格组件 -->
+	<script src="components/table-data.js"></script>
+	<!-- 日期组件 -->
+	<script src="components/my-date.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div id="select">
+			<div class="select_top">				
+			  	<div class="select_item">
+				  	<div class="form-group">
+			            <label class="font-noraml">重要用户</label>
+			            <my-select :data-select="region" @linkage="change"/>
+			        </div>
+			    </div>
+			    <div class="select_item">
+				  	<div class="form-group">
+			            <label class="font-noraml">区域</label>
+			            <my-select2 :data-select2="A"/>
+			        </div>
+			    </div>
+			    <div class="select_item">
+				  	<div class="form-group">
+			            <label class="font-noraml">参数</label>
+			            <my-select2 :data-select2="statistics"/>
+			        </div>
+			    </div>
+			    <div class="select_item">
+                        <span class="time_label">查询时间</span> 
+                        <span class="time_input">
+							<my-date :date-id="usedStartTime" @gettime="mytime"/>
+						</span>
+						<i>至</i>
+						<span class="time_input">
+							<my-date :date-id="usedEndTime" @gettime="myendtime"/>
+						</span>
+                </div>
+                <div class="select_btn">
+                	<a href="javascript:;" id="query_derive" class="select_query_btn" @click="getTableData">
+                		<i class="fa fa-search" aria-hidden="true"></i>导出
+                	</a>
+                	<a href="javascript:;" id="query_btns" class="select_query_btn" @click="getTableData">
+                		<i class="fa fa-file-word-o" aria-hidden="true"></i>查询
+                	</a>
+                </div>
+			</div>
+			
+			<div class="curveDiv">
+				<table-data :op-disk-data="opDiskData"/>
+	        </div>
+	   
+        </div>
+	</div>
+</body>
+<script>
+
+
+Vue.prototype.$http= axios;
+	var app = new Vue({
+		el: "#app",
+		data:{
+			opDiskData:[{name: "1",position: "88","sss":"sd"}],			
+			region:[//多选框数据
+				{
+					regions:"天桥区",
+					importantUser:["天桥公安局","天桥税务局","天桥商店","天桥工厂","天桥小区",]
+				},
+				{
+					regions:"槐荫区",
+					importantUser:["槐荫公安局","槐荫税务局","槐荫商店","槐荫工厂","槐荫小区",]
+				},
+				{
+					regions:"高新区",
+					importantUser:["高新公安局","高新税务局","高新商店","高新工厂","高新小区",]
+				},
+				{
+					regions:"历下区",
+					importantUser:["历下公安局","历下税务局","历下商店","历下工厂","历下小区",]
+				},
+				{
+					regions:"历城区",
+					importantUser:["历城公安局","历城税务局","历城商店","历城工厂","历城小区",]
+				},
+				{
+					regions:"长青区",
+					importantUser:["长青公安局","长青税务局","长青商店","长青工厂","长青小区",]
+				},
+				{
+					regions:"市中区",
+					importantUser:["市中公安局","市中税务局","市中商店","市中工厂","市中小区",]
+				},
+			],
+			//统计
+			statistics:["电压突降次数","最大电流突降比例","电流突升次数","最大电流突升比例","电流三相不平衡持续时间","停电次数,停电频率"],
+			A:["天桥公安局","天桥税务局","天桥商店","天桥工厂","天桥小区"],
+			usedStartTime:'usedStartTime',
+			usedEndTime:'usedEndTime',
+			startTime: '',
+			endTime:''
+		},
+		mounted(){
+		
+		},
+		methods:{
+			getTableData(){			
+				let url = "./data/01.json";
+				let _this = this;
+				console.log('time',this.startTime,this.endTime)//选择的时间
+				this.$http.post(url).then(function(resolve){
+					_this.opDiskData = resolve.data;
+					console.log('res',_this.opDiskData)
+
+				}).catch(function(err){
+					console.log(err);
+				})
+			},
+			change(value){
+				// console.log('value-A',value)
+				this.A = value;
+			},
+			mytime(val){
+				console.log('time',val)
+				this.startTime = val
+			},
+			myendtime(val){
+				console.log('endTime',val)
+				this.endTime = val
+			}
+		},
+		components:{tableData,MySelect,MySelect2,MyDate}	
+	})
+	
+	
+</script>
+</html>

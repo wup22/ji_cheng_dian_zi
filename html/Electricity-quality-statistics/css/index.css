@@ -1,0 +1,155 @@
+@charset 'utf-8';
+
+html,body{background:url(../images/main_back.png);background-size:100% 100%;height:calc(100% - 24px)!important;}
+#app{height: 100%;width: 100%;padding:20px;/*background:url(../images/main_back.png);background-size:100% 100%;*/box-sizing:border-box;}
+#select{height: 100%;width: 100%;}
+/*下拉框最外层*/
+#select .select_top{width: 100%;height:100px;margin-bottom:10px; background-image: url(../images/float_item_content_back.png?v=1.0);background-size:100% 100%;padding: 0 15px;}
+
+#select .select_top .select_item{padding: 10px 20px 0 0;height: 40px;/*display: inline-block;*/color:#bad9fb;font-size: 12px;line-height:30px;float:left;}
+/*label标签*/
+#select .select_top .select_item .font-noraml{font-size: 12px;color:#bad9fb;line-height: 30px;height: 30px;float:left;padding-right:4px;}
+/*下拉框最外层div*/
+#select .select_top .select_item .input-group{width: 150px;height: 30px;border:0;border-radius:0;background: #102b78 !important;float:left;position: relative;}
+/*input和关闭按钮外层div*/
+#select .select_top .select_item .input-group .chosen-select{width: 150px;height: 30px;border-radius:0;background: #102b78;border:0;}
+
+
+#byRtuModelSel_1_chosen{height: 30px;}/*多选框*/
+
+/*下拉框最外层div*/
+.chosen-container .chosen-drop{background:url(../images/main_back.png)!important;background-size:100% 100% !important;}
+.chosen-container.chosen-container-single{background: #102b78 !important;}
+/*slect框文字*/
+.chosen-container.chosen-container-single .chosen-single{ background:url(../images/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;}
+/*编译后select框文字*/
+.chosen-container.chosen-container-single .chosen-single > span{color:#bad9fb;font-size:12px;line-height: 30px;display: inline-block;height: 100%;}
+/*input框父级div*/
+.chosen-container .chosen-drop .chosen-search{color:#bad9fb;font-size:12px;}
+/*input框*/
+.chosen-container .chosen-drop .chosen-search > input{color:#bad9fb;font-size:12px;}
+.chosen-container .chosen-drop .chosen-results{}/*下拉框ul*/ 
+/*下拉框li*/
+.chosen-container .chosen-drop .chosen-results .active-result{color: #bad9fb;font-size:12px;} 
+/*搜索后提示框*/
+.chosen-container .chosen-drop .chosen-results .no-results{color: #333;font-size:12px;background: #fff;}
+/*多选框ul*/
+.chosen-choices{background:url(../images/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;}
+.chosen-choices .search-field{}/*多选框li(有input的)*/
+/*选中的li*/
+.chosen-choices .search-choice{background:url(../images/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;}
+/*选中后的文字*/
+.chosen-choices .search-choice > span{font-size: 12px;color:#bad9fb;}
+
+/*时间选择框*/
+    #select .select_top .select_item .time_label{font-size: 12px;color:#bad9fb;}
+    #select .select_top .select_item .time_input > input{background:#204474;color:#bad9fb;position: relative;width: 130px;height: 30px;}
+/*查询导出按钮*/
+        #select .select_top .select_btn{padding: 10px 20px 0 0;height: 40px;color:#bad9fb;font-size: 12px;line-height:30px;float:left;}
+        #query_derive,#query_btns{font-size:14px;color:#bad9fb;border: 0;padding:10px;}
+        #query_derive{background:url(../images/bt-blue.png);background-size:100% 100%;}
+        #query_btns{background:url(../images/bt-green.png);background-size:100% 100%;margin-left:3px;}
+        #query_derive > i{font-size:14px;color:#bad9fb;}
+        #query_btns > i{font-size:14px;color:#bad9fb;}
+        #select .select_top .select_btn .select_query_btn:hover{font-size:13px;cursor: pointer;}
+
+.chosen-container-single .chosen-single {
+    box-shadow: none;
+    -moz-box-sizing: border-box;
+    cursor: text;
+    margin: 0;
+    overflow: hidden;
+    padding: 4px 12px;
+    position: relative;
+    width: 150px;
+    background: #102b78 url(../images/cztypebt.png?v=1.0);
+    background-size: 100% 100%;
+    background-color: #102b78;
+    color: #fff;
+    border-width: 0px;
+    height: 30px !important;
+    min-height: 30px;
+    padding-right: 10px;
+    border-radius: 1px !important;
+}
+
+/*总在线率样式*/
+    #select .show_tabs_row{padding-left:15px;line-height: 25px;border-bottom:1px solid #bad9fb;}/*p标签*/
+    #select .show_tabs_row .show_tabs_span{font-size: 16px;color:#bad9fb;border:1px solid #fff;cursor: pointer;border-bottom:0;padding:0 15px;display: inline-block;}/*总在线率为*/
+
+
+
+
+/*表格样式*/
+    /*表格外层div*/
+    #select .curveDiv{width: 100%;height:calc(100% - 126px);padding-top: 20px;}
+    #rtuAccTable_wrapper{width: 100%;height: 100%;}
+    /*表格外层div*/
+    #rtuAccTable_wrapper > div.dataTables_scroll{width: 100%;height: calc(100% - 98px);}
+    #rtuAccTable_wrapper > div.dataTables_scroll > div.dataTables_scrollHead{}
+    /*表头标题*/
+    #rtuAccTable_wrapper > div.dataTables_scroll > div.dataTables_scrollHead th{color:#bad9fb;background:url(../images/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;text-align: left;font-weight:500;font-style: 14px;}
+    /*表体外层div*/
+    #rtuAccTable_wrapper > div.dataTables_scroll > div.dataTables_scrollBody{display: flex;flex: 1!important;height:calc(100% - 42px)!important;}
+    /*table标签*/
+    #rtuAccTable{overflow-y:scroll;}
+    /*表格内容*/
+    #rtuAccTable > tbody{overflow: auto;background:#102b78 !important;}
+    /*积数行*/
+    #rtuAccTable > tbody .odd{background:#0a1b2e;}
+    /*#rtuAccTable > tbody > tr:nth-child(odd){background:#0a1b2e;}*/
+    /*偶数行*/
+    #rtuAccTable > tbody .even{background:#072642;}
+    /*#rtuAccTable > tbody > tr:nth-child(even){background:#072642;}*/
+    /*鼠标划过样式*/
+    #rtuAccTable > tbody > tr > td{color:#bad9fb !important;padding: 8px;border:1px solid #102b78;}
+    #rtuAccTable > tbody > tr:hover{background:orange;}
+    /*显示每页显示的条数的*/
+    #rtuAccTable_length{padding-bottom:12px;}
+    /*显示每页显示的条数的label标签*/
+    #rtuAccTable_length > label{color:#fff;color:#bad9fb !important;}
+    #rtuAccTable_length > label > select{width: 75px;height: 30px;background:url(../images/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;border-width: 0px;display: inline-block;color:#bad9fb;}
+    /*下拉框option标签*/
+    #rtuAccTable_length > label > select > option{color: #bad9fb;background-color: #0d2747;}
+    /*页脚统计标签div*/
+    #rtuAccTable_info{width: 100%; color:#bad9fb;padding-top: 8px;font-size: 12px;line-height:15px;display: block;}
+    /*分页按钮组外层div*/
+    #rtuAccTable_paginate{width: 100%;text-align: right;}
+    /*分页按钮a标签*/
+    #rtuAccTable_paginate a{font-size: 14px;padding: 4px 10px;;background:url(../images/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;color:#bad9fb !important;margin: 0;border-radius: 0;}
+    /*上一页按钮a标签*/
+    #rtuAccTable_previous{border-radius:4px 0 0 4px !important;}
+    /*下一页按钮a标签*/
+    #rtuAccTable_next{border-radius:0 4px 4px 0 !important;}
+    /*当前页按钮样式*/
+    #rtuAccTable_paginate .current{color:orange !important;}
+    /*禁用样式*/
+    .disabled{cursor: not-allowed !important;}
+    /*划过分页按钮样式*/
+    #rtuAccTable_paginate a:hover{border:1px solid #fff;}
+
+/*滚动条样式:表格,多选框*/
+        .dataTables_scrollBody::-webkit-scrollbar,.chosen-results::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 6px;     /*高宽分别对应横竖滚动条的尺寸*/
+            /*height: 10px;*/
+        }
+        .dataTables_scrollBody::-webkit-scrollbar-thumb,.chosen-results::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            /*border-radius: 5px;*/
+            -webkit-box-shadow: inset 0 0 5px #ccc;
+            background: #ccc;
+        }
+        .dataTables_scrollBody::-webkit-scrollbar-track ,.chosen-results::-webkit-scrollbar-track{/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,1);
+            border-radius: 0;
+            background: rgba(0,0,0,1);
+        }
+
+
+
+
+
+
+
+
+
+
