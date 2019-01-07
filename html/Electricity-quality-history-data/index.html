@@ -21,7 +21,7 @@
 	<script src="../../plugins/chosen/js/chosen.jquery.js"></script>
 	<link rel="stylesheet" href="../../plugins/chosen/css/chosen.css">
 	<!-- 多选框组件 -->
-	<script src="components/my-select.js"></script>
+	<script src="../../js/components/my-select.js"></script>
 	<script src="components/my-select2.js"></script>
 	<!-- 图表组件 -->
 	<script src="components/bar-echarts.js"></script>
@@ -32,7 +32,8 @@
 	<script src="components/table-data.js"></script>
 	<!-- 日期组件 -->
 	<script src="components/my-date.js"></script>
-	<script src="../../js/get-data.js"></script>
+	<!-- ajax组件 -->
+	<script src="../../js/my-axios.js"></script>
 </head>
 <body>
 	<div id="app">
@@ -45,6 +46,7 @@
 			            v-if="region.length > 0" 
 			            :data-select="region"
 			            :select-id="byRtuModelSel" 
+			            :port="importantUser"
 			            @linkage="change"/>
 			        </div>
 			    </div>
@@ -57,7 +59,7 @@
 			    <div class="select_item">
 				  	<div class="form-group">
 			            <label class="font-noraml">参数</label>
-			            <my-select2 :data-select2="C"  v-if="C.length > 0" :select-id="byRtuModelSel_3"/>
+			            <my-select2 :data-select2="B"  v-if="B.length > 0" :select-id="byRtuModelSel_3"/>
 			        </div>
 			    </div>
 			    <div class="select_item">
@@ -94,14 +96,10 @@
 	</div>
 </body>
 <script>
-/*const Axios = axios.create({
-   baseURL: 'http://192.168.21.106:8080/bspower/a/',
-   timeout: 8000,
-    // headers: {'X-Custom-Header': 'foobar'}
-});
-Vue.prototype.$http= Axios;*/
+
 Vue.prototype.$echarts = echarts ;
-Vue.prototype.$axios = $ajax;
+Vue.prototype.$axiosGet = ajaxGet;
+Vue.prototype.$ajaxPost = ajaxPost;
 	var app = new Vue({
 		el: "#app",
 		data:{
@@ -122,48 +120,25 @@ Vue.prototype.$axios = $ajax;
 			byRtuModelSel:'byRtuModelSel',
 			byRtuModelSel_2:'byRtuModelSel_2',
 			byRtuModelSel_3:'byRtuModelSel_3',
+			importantUser:'importantUser',
 			//统计
 			statistics:["电压突降次数","最大电流突降比例","电流突升次数","最大电流突升比例","电流三相不平衡持续时间","停电次数,停电频率"],
 			val_1:'',
 			A:[],
 			B:[],
-			C:[],
 			usedStartTime:'usedStartTime',
 			usedEndTime:'usedEndTime',
 			startTime: '',
 			endTime:''
 		},
-		beforeCreate(){
-			/*this.$http.post('/region').then((res)=>{				
-				let flag = res.data;				
-				if(flag.code == 'OK'){
-					this.region = flag.data
-					// console.log('region',this.region)
-					// console.log(flag.msg)
-				}else{
-					console.log(flag.msg)
-				}				
-			}).catch((err)=>{
-				console.log(err);
-			});*/
-			let that = this;
-			this.$axios('/param',that.B);
-			console.log('B',this.B)
-		},
-		mounted(){
-			console.log('B',this.B)
-			//http://192.168.21.106:8080/bspower/a/importantUser?quyu=天桥区
-			/*this.$http.get('/param').then((res)=>{
-				console.log('2',res.data);
-			}).catch((err)=>{
-				console.log(err);
-			});*/
-			
-			
-		},
-		updated(){console.log('B',this.B)},
-		watch:{
-			B(v){this.C = v}
+		beforeCreate(){			
+			this.$axiosGet('/region',res=>{
+				this.region = res;
+				// console.log(res)
+			});
+			this.$axiosGet('/param',res=>{
+				this.B = res;
+			});
 		},
 		methods:{
 			//获取表格数据

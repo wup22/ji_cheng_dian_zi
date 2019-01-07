@@ -3,7 +3,7 @@ let MySelect2 = Vue.extend({
         <div class="input-group">
             <select 
             name="byRtuModel" 
-            id="byRtuModelSel" 
+            :id="selectId" 
             class="chosen-select"
             data-placeholder="请选择" 			                 
             style="width: 150px;" 
@@ -28,18 +28,22 @@ let MySelect2 = Vue.extend({
 			required:false,
 			default:["详细信息1","详细信息2","详细信息3"]
 		},
-		
+		selectId:{
+			type:String,
+			required:true,
+			default:''
+		}
 	},
 	mounted(){
 		//多选框初始化
-		$('.chosen-select').chosen({				
+		$('#'+this.selectId).chosen({				
 			no_results_text: '未查询到',//搜索无结果时显示的提示
 			width: '100%',
 			display_selected_options:true  //多选框是否在下拉列表中显示已经选中的项
 		});
 		//监听多选框数据变化
 		this.$watch('dataSelect2',(newVal,oldVal)=>{				
-			$('.chosen-select').trigger('chosen:updated')
+			$('#'+this.selectId).trigger('chosen:updated')
 		});
 	},
 	methods:{

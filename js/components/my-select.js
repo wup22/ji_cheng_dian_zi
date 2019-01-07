@@ -3,7 +3,7 @@ let MySelect = Vue.extend({
         <div class="input-group">
             <select 
             name="byRtuModel" 
-            id="byRtuModelSel" 
+            :id="selectId" 
             class="chosen-select"
             data-placeholder="请选择" 			                 
             style="width: 150px;" 
@@ -11,30 +11,38 @@ let MySelect = Vue.extend({
             >
                 <option 
                 v-for="item,index in dataSelect"
-                :value="item.regions" 			                     
+                :value="item" 			                     
                 :key="index"
                 >
-                	{{item.regions}}
+                	{{item}}
                 </option>
                 
             </select>
         </div>`,
-	data(){
-		return{
-			// A:[]
-		}
-	},
+	
 	props:{
+		// 数据
 		dataSelect:{
 			type:Object,
-			required:false,
-			default:[{regions: "默认数据"}]
+			required:true,
+			default:''
+		},
+		// id元素
+		selectId:{
+			type:String,
+			required:true,
+			default:''
+		},
+		// 请求接口
+		port:{
+			type:String,
+			default:''
 		}
-		
 	},
+	
 	mounted(){
 		//多选框初始化
-		$('.chosen-select').chosen({				
+		$('#'+this.selectId).chosen({				
 			no_results_text: '未查询到',//搜索无结果时显示的提示
 			width: '100%',
 			display_selected_options:true  //多选框是否在下拉列表中显示已经选中的项
@@ -42,18 +50,13 @@ let MySelect = Vue.extend({
 		
 		//多选框change事件
 		let that = this;		
-		$('.chosen-select').on('change', function(e, params) {
-			let arr = that.dataSelect;			  
-		  	arr.map((item,index)=>{
-		  		if(item.regions == params.selected){
-		  			let arr = []
-		  			arr = item.importantUser	  		
-		  			// that.A = item.importantUser	
-		  			that.$emit("linkage",arr)		  		
-		  			// console.log('子',arr)
-		  		}
-		  	})
-
+		$('#'+this.selectId).on('change', function(e, params) {
+			// console.log('e',e,'params',params)
+			that.$axiosGet('/'+that.port+'?name='+params.selected,res=>{
+				// let arr = []
+				// arr = res;
+				that.$emit("linkage",res)
+			});
 		});
 	},
 	methods:{

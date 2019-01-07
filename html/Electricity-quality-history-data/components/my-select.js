@@ -25,14 +25,21 @@ let MySelect = Vue.extend({
 		}
 	},
 	props:{
+		// 数据
 		dataSelect:{
 			type:Object,
 			required:true,
 			default:''
 		},
+		// id元素
 		selectId:{
 			type:String,
 			required:true,
+			default:''
+		},
+		// 请求接口
+		port:{
+			type:String,
 			default:''
 		}
 	},
@@ -49,22 +56,11 @@ let MySelect = Vue.extend({
 		let that = this;		
 		$('#'+this.selectId).on('change', function(e, params) {
 			// console.log('e',e,'params',params)
-			that.$http.get('/importantUser?region='+params.selected).then((res)=>{
-				// console.log(res.data.data);
-				let flag = res.data;				
-				if(flag.code.toUpperCase() == 'OK'){
-					let arr = []
-					arr = flag.data
-					that.$emit("linkage",arr)
-					// console.log('region',this.region)
-				}else{
-					console.log(flag.msg)
-				}				
-			}).catch((err)=>{
-				console.log(err)
-			})
-
-			
+			that.$axiosGet('/'+that.port+'?region='+params.selected,res=>{
+				// let arr = []
+				// arr = res;
+				that.$emit("linkage",res)
+			});
 		});
 	},
 	methods:{

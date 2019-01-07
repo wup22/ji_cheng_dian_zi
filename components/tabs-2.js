@@ -203,7 +203,6 @@ var Tabs = Vue.extend({
 		        		this.v1 = this.tabs2.length - 1;
 		        		// console.log('tabs',this.tabs2)		        		
 					}
-					// console.log('1=>',targetName);
 	        },
 	        isTabs(index){  //点击tabs方法
 	        	this.v1 = index;
@@ -237,22 +236,25 @@ var Tabs = Vue.extend({
 	        removeTab(targetIndex) {
 	        	console.log('targetName',targetIndex);  
 	        	let tabs = this.tabs2;	        
-	        	let activeName = this.v1; 
-	        	let tt = targetIndex;
+	        	// let activeName = this.v1; 
 	        	console.log('v1',this.v1)
-	        	if (activeName === tt) {
+	        	if (this.v1 === targetIndex) {
 	        	  
 	          		tabs.splice(targetIndex,1);
-	            	activeName = tt--;
-	            	console.log('ll',activeName)
+	          		// event.target.parentNode.previousSibling.classList.add("is-active")
+	          		this.tabs2 = tabs;
+	            	this.v1 = this.tabs2.length - 1;
+	            	console.log('ll',this.v1)
 	        	}else{
 	        		tabs.splice(targetIndex,1);
-	        	}	              
+	        	}
+	        	// tabs.splice(targetIndex,1);	              
 	        	// this.v1 = activeName;console.log('v1-1',this.v1)
 	        	// this.tabs2 = tabs.filter(tab => tab.name !== targetIndex);
-	        	console.log('editableTabsValue2',this.tabIndex,'-|-','tabs2',this.tabs2)
+	        	// console.log('editableTabsValue2',this.tabIndex,'-|-','tabs2',this.tabs2)
 	        }
 		},
+		
 		mounted(){
 			this.$watch('v1',(newVal,oldVal)=>{
 

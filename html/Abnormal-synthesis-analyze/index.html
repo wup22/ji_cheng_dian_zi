@@ -19,13 +19,15 @@
 	<script src="../../plugins/chosen/js/chosen.jquery.js"></script>
 	<link rel="stylesheet" href="../../plugins/chosen/css/chosen.css">
 	<!-- 多选框组件 -->
-	<script src="components/my-select.js"></script>
-	<script src="components/my-select2.js"></script>
+	<script src="../../js/components/my-select.js"></script>
+	<script src="../../js/components/my-select2.js"></script>
 	<!-- dataTables插件 -->
 	<script src="../../plugins/dataTables/jquery.dataTables.js"></script>
 	<link rel="stylesheet" href="../../plugins/dataTables/css/jquery.dataTables.css">
 	<!-- 表格组件 -->
 	<script src="components/table-data.js"></script>
+	<!-- ajax组件 -->
+	<script src="../../js/my-axios.js"></script>
 </head>
 <body>
 	<div id="app">
@@ -34,13 +36,18 @@
 			  	<div class="select_item">			  		
 				  	<div class="form-group">
 			            <label class="font-noraml">统计分类</label>
-			            <my-select :data-select="region" @linkage="change"/>			           
+			            <my-select 
+			             v-if="classify.length > 0" 
+			             :data-select="classify"
+			             :select-id="byRtuModelSel" 
+			             :port="time"
+			             @linkage="change"/>			           
 			        </div>
 			    </div>
 			    <div class="select_item">
 				  	<div class="form-group">
 			            <label class="font-noraml">时间</label>
-			            <my-select2 :data-select2="A"/>			          
+			            <my-select2 :data-select2="A" :select-id="byRtuModelSel_2"/>
 			        </div>
 			    </div>
 			    
@@ -68,31 +75,20 @@
 </body>
 <script>
 
-Vue.prototype.$http= axios;
+
+Vue.prototype.$axiosGet = ajaxGet;
+Vue.prototype.$ajaxPost = ajaxPost;
 	var app = new Vue({
 		el: "#app",
 		data:{
 			opDiskData:{EMS:[{name:"初始数据",position:88}],DMS:[{name: "DMS",position: "DMSDms"}]},	
 			rtuAccTable:"rtuAccTable",
 			rtuAccTable_2:"rtuAccTable_2",
-			region:[//多选框数据
-				{
-					regions:"电压突变",
-					importantUser:["1:00详细信息","5:00详细信息","12:00详细信息","16:00详细信息","20:00详细信息"]
-				},
-				{
-					regions:"三相不平衡",
-					importantUser:["1:30详细信息","5:30详细信息","12:30详细信息","16:30详细信息","20:30详细信息"]
-				},
-				{
-					regions:"缺陷分析",
-					importantUser:["2:00详细信息","6:00详细信息","13:00详细信息","15:00详细信息","21:00详细信息"]
-				},
-				{
-					regions:"电压闪变",
-					importantUser:["2:40详细信息","6:40详细信息","13:40详细信息","15:40详细信息","21:40详细信息"]
-				}
-			],
+			countClassify:'countClassify',
+			byRtuModelSel:"byRtuModelSel_11",
+			byRtuModelSel_2:'byRtuModelSel_22',
+			time:'time',
+			classify:[],
 			statistics:[//统计
 				{title:"电压突降次数"},
 				{title:"最大电流突降比例"},
@@ -106,6 +102,12 @@ Vue.prototype.$http= axios;
 			B:[],
 			startTime: '',
 			endTime:''
+		},
+		created(){
+			this.$axiosGet('/countClassify',res=>{
+				this.classify = res;
+				// console.log(res)
+			});
 		},
 		mounted(){
 		},
