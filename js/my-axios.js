@@ -13,7 +13,7 @@ Axios.interceptors.response.use(
 	    	// console.log('aa',config.data.data)
 	    	return config.data.data
 	    }else{
-	    	console.log('bb',config.data.msg)
+	    	console.log('有错误',config.data.msg)
 	    	// return config.data.msg
 	    }
 	    

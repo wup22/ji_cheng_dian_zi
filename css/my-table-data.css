@@ -1,0 +1,64 @@
+
+/*dataTables自定义样式*/
+    .dataTables_wrapper{width: 100%;height: 100%;}
+    /*表格外层div*/
+    .dataTables_wrapper > div.dataTables_scroll{width: 100%;height: calc(100% - 98px);}
+    .dataTables_wrapper > div.dataTables_scroll > div.dataTables_scrollHead{}
+    /*表头标题*/
+    .dataTables_wrapper > div.dataTables_scroll > div.dataTables_scrollHead th{color:#bad9fb;background:url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;text-align: left;font-weight:500;font-style: 14px;}
+    /*表体外层div*/
+    .dataTables_wrapper > div.dataTables_scroll > div.dataTables_scrollBody{display: flex;flex: 1!important;height:calc(100% - 42px)!important;}
+    /*table标签*/
+
+    /*表格内容*/
+    .dataTables_wrapper .dataTables_scroll .dataTables_scrollBody > table > tbody{overflow: auto;background:#102b78 !important;}
+    /*积数行*/
+    .dataTables_wrapper .dataTables_scroll .dataTables_scrollBody > table > tbody .odd{background:#0a1b2e;}
+    /*偶数行*/
+    .dataTables_wrapper .dataTables_scroll .dataTables_scrollBody > table > tbody .even{background:#072642;}
+    /*鼠标划过样式*/
+    .dataTables_wrapper .dataTables_scroll .dataTables_scrollBody > table > tbody > tr > td{color:#bad9fb !important;padding: 8px;border:1px solid #102b78;}
+    .dataTables_wrapper .dataTables_scroll .dataTables_scrollBody > table > tbody > tr:hover{background:orange;}
+    /*显示每页显示的条数的*/
+    .dataTables_wrapper .dataTables_length{padding-bottom:12px;}
+    /*显示每页显示的条数的label标签*/
+    .dataTables_wrapper .dataTables_length > label{color:#fff;color:#bad9fb !important;}
+    .dataTables_wrapper .dataTables_length > label > select{width: 75px;height: 30px;background:url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;border-width: 0px;display: inline-block;color:#bad9fb;}
+    /*下拉框option标签*/
+    .dataTables_wrapper .dataTables_length > label > select > option{color: #bad9fb;background-color: #0d2747;}
+    /*页脚统计标签div*/
+    .dataTables_wrapper .dataTables_info{width: 100%; color:#bad9fb;padding-top: 8px!important;font-size: 12px;line-height:15px;display: block;color: #bad9fb!important;}
+    /*分页按钮组外层div*/
+    .dataTables_wrapper .dataTables_paginate{width: 100%;text-align: right;}
+    /*分页按钮a标签*/
+    .dataTables_wrapper div.paging_simple_numbers .paginate_button{font-size: 14px;padding: 4px 10px;background:url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;border-radius: 0;color:#bad9fb!important;margin: 0;border:1px solid #0d2747;}
+    /*上一页按钮a标签*/
+    .dataTables_wrapper .dataTables_paginate .previous{border-radius:4px 0 0 4px !important;}
+    /*下一页按钮a标签*/
+    .dataTables_wrapper .dataTables_paginate .next{border-radius:0 4px 4px 0 !important;}
+    /*当前页按钮样式*/
+     div.dataTables_wrapper div.dataTables_paginate.paging_simple_numbers > span > .current{color:orange !important;border:1px solid #0d2747;}
+    /*禁用样式*/
+    .disabled{cursor: not-allowed !important;}
+    /*划过分页按钮样式*/
+    #app .dataTables_wrapper .dataTables_paginate > span > a:hover{border:1px solid #fff;}
+    /*搜索框样式*/
+        .dataTables_wrapper .dataTables_filter{height: 35px;padding-bottom: 5px;}
+        .dataTables_wrapper .dataTables_filter > label{color:#bad9fb;font-size: 14px;line-height: 30px;}
+        .dataTables_wrapper .dataTables_filter > label > input{width:180px;height:100%;background:#072683; color:#bad9fb;font-size: 16px;}
+
+/*滚动条样式:表格*/
+        .dataTables_scrollBody::-webkit-scrollbar{/*滚动条整体样式*/
+            width: 6px;     /*高宽分别对应横竖滚动条的尺寸*/
+            /*height: 10px;*/
+        }
+        .dataTables_scrollBody::-webkit-scrollbar-thumb{/*滚动条里面小方块*/
+            /*border-radius: 5px;*/
+            -webkit-box-shadow: inset 0 0 5px #ccc;
+            background: #ccc;
+        }
+        .dataTables_scrollBody::-webkit-scrollbar-track{/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,1);
+            border-radius: 0;
+            background: rgba(0,0,0,1);
+        }

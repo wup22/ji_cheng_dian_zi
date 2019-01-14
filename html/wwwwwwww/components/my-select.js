@@ -1,54 +1,59 @@
-let MySelect2 = Vue.extend({
+let MySelect = Vue.extend({
 	template:`
         <div class="input-group">
             <select 
             name="byRtuModel" 
-            :id="selectId" 
+            id="byRtuModelSel" 
             class="chosen-select"
             data-placeholder="请选择" 			                 
             style="width: 150px;" 
             tabindex="2" 			              
             >
                 <option 
-                v-for="item,index in dataSelect2"
-                :value="item" 			                     
+                v-for="item,index in dataSelect"
+                :value="item.regions" 			                     
                 :key="index"
                 >
-                	{{item}}
+                	{{item.regions}}
                 </option>
                 
             </select>
         </div>`,
 	data(){
-		return{}
+		return{
+			// A:[]
+		}
 	},
 	props:{
-		dataSelect2:{
+		dataSelect:{
 			type:Object,
 			required:false,
-			default:["详细信息1","详细信息2","详细信息3"]
-		},
-		selectId:{
-			type:String,
-			required:true,
-			default:''
+			default:[{regions: "默认数据"}]
 		}
+		
 	},
 	mounted(){
 		//多选框初始化
-		$('#'+this.selectId).chosen({				
+		$('.chosen-select').chosen({				
 			no_results_text: '未查询到',//搜索无结果时显示的提示
 			width: '100%',
 			display_selected_options:true  //多选框是否在下拉列表中显示已经选中的项
 		});
-		//监听多选框数据变化
-		this.$watch('dataSelect2',(newVal,oldVal)=>{				
-			$('#'+this.selectId).trigger('chosen:updated')
-		});
+		
+		//多选框change事件
 		let that = this;		
-		$('#'+this.selectId).on('change', function(e, params) {
-			// console.log('e',e,'params',params)		
-			that.$emit("linkage",params.selected)
+		$('.chosen-select').on('change', function(e, params) {
+			let arr = that.dataSelect;			  
+		  	arr.map((item,index)=>{
+		  		if(item.regions == params.selected){
+		  			let arr = []
+		  			arr = item.importantUser	  		
+		  			// that.A = item.importantUser	
+		  			that.$emit("linkage",arr)		  		
+		  			// console.log('子',arr)
+		  		}
+		  	})
+
 		});
 	},
 	methods:{

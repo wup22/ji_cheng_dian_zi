@@ -1,0 +1,56 @@
+/*下拉框最外层div*/
+    .input-group{width: 150px;height: 30px;border:0;border-radius:0;background: #102b78 !important;float:left;position: relative;}
+    /*input和关闭按钮外层div*/
+    /*.select_top .select_item .input-group .chosen-select{width: 150px;height: 30px;border-radius:0;background: #102b78;border:0;}*/
+
+    /*下拉框的下拉最外层div*/
+    .chosen-container .chosen-drop{background:url(../img/main_back.png)!important;background-size:100% 100% !important;}
+    /*.chosen-container.chosen-container-single{background: #102b78 !important;}*/
+    /*slect框文字*/
+    .chosen-container-single .chosen-single {box-shadow: none;-moz-box-sizing: border-box;cursor: text;margin: 0;overflow: hidden;padding: 4px 12px; position: relative;width: 150px;background: #102b78 url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100%!important;color: #fff;border-width: 0px;height: 30px !important;min-height: 30px; padding-right: 10px;border-radius: 1px !important;}
+    /*编译后select框文字*/
+    .chosen-container.chosen-container-single .chosen-single > span{color:#bad9fb;font-size:12px;line-height: 30px;}
+    /*选择框内三角形*/
+    .chosen-container.chosen-container-single .chosen-single > div{line-height: 30px!important;}
+    .chosen-container.chosen-container-single .chosen-single > div > b{line-height: 30px!important;}
+    /*input框父级div*/
+    .chosen-container .chosen-drop .chosen-search{color:#bad9fb;font-size:12px;}
+    /*input框*/
+    .chosen-container .chosen-drop .chosen-search > input{color:#bad9fb;font-size:12px;}
+    .chosen-container .chosen-drop .chosen-results{}/*下拉框ul*/ 
+    /*下拉框li*/
+    .chosen-container .chosen-drop .chosen-results .active-result{color: #bad9fb;font-size:12px;} 
+    /*搜索后提示框*/
+    .chosen-container .chosen-drop .chosen-results .no-results{color: #333;font-size:12px;background: #fff;}
+
+    /*多选框*/
+    div.chosen-container.chosen-container-multi{height: 30px;}
+    /*下拉多选框ul*/
+    .chosen-choices{background:url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;height: 30px;overflow: hidden;}
+    .chosen-choices .search-field{}/*多选框li(有input的)*/
+    /*选中的li*/
+    .chosen-choices .search-choice{background:url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;}
+    /*选中后的文字*/
+    .chosen-choices .search-choice > span{font-size: 12px;color:#bad9fb;}
+
+
+    /*时间选择框input**/
+    .wpDate{color:#bad9fb;position: relative;width:130px;height:30px;background:#204474 url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;}
+
+/*滚动条样式:多选框*/
+        .chosen-results::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 6px;     /*高宽分别对应横竖滚动条的尺寸*/
+            /*height: 10px;*/
+        }
+        .chosen-results::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            /*border-radius: 5px;*/
+            -webkit-box-shadow: inset 0 0 5px #ccc;
+            background: #ccc;
+        }
+        .chosen-results::-webkit-scrollbar-track{/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,1);
+            border-radius: 0;
+            background: rgba(0,0,0,1);
+        }
+
+  

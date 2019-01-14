@@ -8,27 +8,126 @@
 		<script src="plugins/vue/vue.min.js"></script>
 		<script src="plugins/element-ui/lib/index.js"></script>
 		<script src="plugins/jquery-1.10.1.min.js"></script>
-		<script src="components/tabs-2.js"></script>	
+		<!-- tabs组件 -->
+		<script src="components/tabs-2.js"></script>
+		<script src="components/header.js"></script>
+		<script src="components/my-footer.js"></script>			
 		<link rel="stylesheet" href="plugins/element-ui/lib/theme-chalk/index.css">
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/index.css">
+		<!-- ajax组件 -->
+		<script src="js/my-axios.js"></script>
 	</head>
 	<body>
 		<div id="app">
-			<Tabs/>
+			<!-- <Tabs v-if="indexMenu.length > 0" :index-menu="indexMenu"/> -->
+			<div id="header" @click="rightNone">
+				<index-header 
+				 v-if="arr2.length > 0" 
+				 :index-menu="arr2" 
+				 :tabs="tabs2"
+				 :v1="v1"
+				 @tabsadd="tabsData"
+				 @show="showIndex"></index-header>
+				<my-footer :tabs-a="tabs2" :v1="v1" @showtabs="showV1"></my-footer>
+			</div>
+			
 		</div>
 	</body>
 	
 <script type="text/javascript">
 
-
+Vue.prototype.$axiosGet = ajaxGet;
+Vue.prototype.$ajaxPost = ajaxPost;
 
 	var app = new Vue({
 		el: "#app",
 		data:{
-			
+			indexMenu :[],
+			arr2:[
+		          {
+		            img:'funcmenu_1.png',
+		            img_active:'funcmenu_1_active.png',
+		            first:'统计分析',
+		            isShow: false,
+		            second:[
+		              {title:'电能质量历史数据',path:'html/Electricity-quality-history-data/index.html'},
+		             
+		            ]
+		          },
+		          {
+		            img:'funcmenu_2.png',
+		            img_active:'funcmenu_2_active.png',
+		            first:'综合分析',
+		            isShow: false,
+		            second:[
+		              {title:'异常综合分析',path:'html/Abnormal-synthesis-analyze/index.html'},
+		           
+		            ]
+		          },
+		          {
+		            img:'funcmenu_3.png',
+		            img_active:'funcmenu_3_active.png',
+		            first:'电能质量分析',
+		            isShow: false,
+		            second:[
+		              {title:'重要负荷分析',path:'html/Important-load-analysis/index.html'},
+		              {title:'异常事件统计',path:'html/Abnormal-event-statistics/index.html'},
+		              {title:'电能质量不平衡',path:'html/Electricity-quality-imbalance/index.html'}
+		            ]
+		          },
+		          {
+		            img:'funcmenu_4.png',
+		            img_active:'funcmenu_4_active.png',
+		            first:'分析与预测',
+		            isShow: false,
+		            second:[
+		              {title:'线损实时分析',path:'html/Line-harm-real-time-analyze/index.html'},
+		              {title:'线损历史分析',path:'html/Line-harm-history-analyze/index.html'} 
+		            ]
+		          }
+		    ],
+			tabs2:[
+	        	{
+	        		title:"首页",
+	        		name:'1',
+	        		content:'<iframe src="html/Electricity-quality-history-data/index.html" frameborder="0" width="100%" height="100%"></iframe>'
+	        	}
+	        ],
+	        v1:0
 		},
-		components:{Tabs}
+		beforeCreate(){			
+			/*this.$axiosGet('/getMenu',(res)=>{
+				this.indexMenu = res;
+				// console.log('首页',this.indexMenu)
+			});	*/
+				
+		},
+		methods:{
+			tabsData(val){
+				let len = this.tabs2.length
+				if(len < 10){
+					this.tabs2.push(val)
+				}else if(len >= 10){
+					this.tabs2.splice(1,1)
+					this.tabs2.push(val)
+				}
+				
+				// console.log(this.tabs2)
+			},
+			rightNone(){
+				document.getElementById('rightBtnMenu').style.display = "none";
+	        	// this.$refs.rightBtnMenu.style.display = "none";
+	        },
+	        showIndex(val){
+	        	this.v1 = val
+	        	console.log(val)
+	        },
+	        showV1(val){
+	        	this.v1 = val
+	        }
+		},
+		components:{IndexHeader,MyFooter}
 
 	});
 	

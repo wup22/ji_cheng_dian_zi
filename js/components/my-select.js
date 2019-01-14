@@ -55,7 +55,7 @@ let MySelect = Vue.extend({
 			that.$axiosGet('/'+that.port+'?name='+params.selected,res=>{
 				// let arr = []
 				// arr = res;
-				that.$emit("linkage",res)
+				that.$emit("linkage",{res:res,selected:params.selected})
 			});
 		});
 	},
