@@ -96,9 +96,8 @@
 				<div class="show_tabs_span" ref="show_tabs_2" @click="echerts_show">柱状图展示</div>
 			</div>
 		
-			<div class="curveDiv" v-show="v1">
-				<table-data 
-				 v-if="isTableShow"
+			<div class="curveDiv" v-if="isTableShow" v-show="v1">
+				<table-data 				 
 				 :domain-name="domainName"
 				 :table-url="tbaleUrl" 
 				 :columns="opTableData" 
@@ -121,10 +120,10 @@ Vue.prototype.$ajaxPost = ajaxPost;
 		data:{
 			domainName:'http://192.168.21.106:8080/bspower/a/',
 			tbaleUrl:'/listByPage',
-			selected:'天桥区', //多选框text
-			selected1:'天桥商店',	
-			selected2:'电压突降次数', //多选框text
-			selectData:{selected:'天桥区',selected1:'天桥商店',selected2:'电压突降次数'},
+			selected:'区', //多选框text
+			selected1:'',	
+			selected2:'次数', //多选框text
+			selectData:{selected:'区',selected1:'桥',selected2:'电'},
 			v1:true,
 			v2:false,
 			isTableShow:true,
@@ -156,10 +155,12 @@ Vue.prototype.$ajaxPost = ajaxPost;
 		beforeCreate(){			
 			this.$axiosGet('/region',res=>{
 				this.region = res;
+				this.selected = res[0]
 				// console.log(res)
 			});
 			this.$axiosGet('/param',res=>{
 				this.B = res;
+				this.selected2 = res[0]
 			});
 		},
 		methods:{
@@ -176,8 +177,10 @@ Vue.prototype.$ajaxPost = ajaxPost;
 				}
 				this.selectData = params
 				this.isTableShow = false;
+				// console.log('isTableShow',this.isTableShow)
 				this.$nextTick(() => (this.isTableShow = true))	
-				console.log(this.selectData)			
+				console.log('selectData',this.selectData)
+				console.log('dddd',$('#'+this.selectId).next('.chosen-container').find('.chosen-single').find('span').html());			
 			},
 			//获取柱状图数据
 			getEchartsData(){

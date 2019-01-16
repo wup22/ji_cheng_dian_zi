@@ -44,6 +44,9 @@ let MySelect2 = Vue.extend({
 		//监听多选框数据变化
 		this.$watch('dataSelect2',(newVal,oldVal)=>{				
 			$('#'+this.selectId).trigger('chosen:updated')
+			// console.log('dddd',$('#'+this.selectId).next('.chosen-container').find('.chosen-single').find('span').html());
+			let oSpan = $('#'+this.selectId).next('.chosen-container').find('.chosen-single').find('span').html()
+			this.$emit("linkage",oSpan)
 		});
 		let that = this;		
 		$('#'+this.selectId).on('change', function(e, params) {

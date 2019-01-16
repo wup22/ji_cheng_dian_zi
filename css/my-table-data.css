@@ -5,7 +5,7 @@
     .dataTables_wrapper > div.dataTables_scroll{width: 100%;height: calc(100% - 98px);}
     .dataTables_wrapper > div.dataTables_scroll > div.dataTables_scrollHead{}
     /*表头标题*/
-    .dataTables_wrapper > div.dataTables_scroll > div.dataTables_scrollHead th{color:#bad9fb;background:url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;text-align: left;font-weight:500;font-style: 14px;}
+    .dataTables_wrapper > div.dataTables_scroll > div.dataTables_scrollHead th{color:#bad9fb;background:url(../img/cztypebt.png?v=1.0)!important;background-size: 100% 100% !important;text-align: left;font-weight:500;font-style: 14px;/*background:linear-gradient(red,blue)*/;}
     /*表体外层div*/
     .dataTables_wrapper > div.dataTables_scroll > div.dataTables_scrollBody{display: flex;flex: 1!important;height:calc(100% - 42px)!important;}
     /*table标签*/

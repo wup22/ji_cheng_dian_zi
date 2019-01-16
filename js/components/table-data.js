@@ -37,7 +37,6 @@ let tableData = Vue.extend({
 	},
 	mounted(){ 
 		//表格初始化
-		// let that = this;
 		let table = $('#' + this.tableId).DataTable({
 			"language":{  //把文字变为中文
 	            "sProcessing": "处理中...",  
@@ -77,7 +76,7 @@ let tableData = Vue.extend({
 	        	"url" : this.domainName + this.tableUrl,
 	        	"type" : "POST",
 	        	"dataSrc" : "data",
-	        	"data" : (data,callback)=>{
+	        	"data" : (data)=>{
 	        		var filterParams = {
 	        			'draw': data.draw,
 	        			'start' : data.start,
@@ -87,21 +86,22 @@ let tableData = Vue.extend({
 	        			'orderDir':data.order[0].dir
 	        			
 	        		}
-	        		console.log('dataTable',data)
-	        		console.log('sss',dataTableParams)
-	        		console.log('callback',JSON.stringify({dataTableParams:dataTableParams,selectData:this.selectData}))
-
-	        		return JSON.stringify({dataTableParams:dataTableParams,selectData:this.selectData});
+	        		// console.log('dataTable',data)
+	        		// console.log('sss',filterParams)
+	        		console.log('callback',JSON.stringify({filterParams:filterParams,selectData:this.selectData}))
+	        		return JSON.stringify(filterParams);
+	        		// return JSON.stringify({filterParams:filterParams,selectData:this.selectData});
 	        	},
+	        	"error" : error=>{console.log(error)},
 	        	"contentType": "application/json;charset=utf-8"
 	        }        
 	    });
 	    //监听表格数据变化
-		this.$watch('selectData',(newVal,oldVal)=>{				
+		/*this.$watch('selectData',(newVal,oldVal)=>{				
 		    table.clear()  ;//清理原数据
 		    table.rows.add(newVal) //添加新数据
 		    table.draw();  			
-		});
+		});*/
 	
 	}
 })
