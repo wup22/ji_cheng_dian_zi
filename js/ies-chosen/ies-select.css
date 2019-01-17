@@ -1,0 +1,86 @@
+/*@charset "utf-8"*/
+
+/*下拉框最外层div*/
+    .input-group{width: 150px;height: 30px;border:0;border-radius:0;background-size:100% 100%;float:left;position: relative;background-image:url(cztypebt.png?v=1.0);z-index: 9;}
+    /*input和关闭按钮外层div*/
+    /*.input-group .chosen-select{width: 150px;height: 30px;border-radius:0;background: #102b78;border:0;}*/
+
+    /*下拉框的下拉最外层div*/
+    .chosen-container .chosen-drop{background:url(main_back.png);background-size:100% 100%;}
+  
+    /*slect框文字a标签*/
+    .chosen-container-single .chosen-single {cursor: text; position: relative;width:100%;background-size: 100% 100%;color: #fff;height:100%;min-height: 30px; padding-right: 10px;display: block;}
+    /*编译后select框文字*/
+    .chosen-container.chosen-container-single .chosen-single > span{color:#bad9fb;font-size:12px;line-height: 30px;padding: 4px 12px;}
+    /*选择框内三角形*/
+    .chosen-container.chosen-container-single .chosen-single > div{width:18px;height:100%;position: absolute;right: 0;top:0;}
+    .chosen-container.chosen-container-single .chosen-single > div > .bTop{width: 0;height: 0;border: 6px solid red;border-bottom-color: #bad9fb;border-top: none;border-left-color: transparent;border-right-color: transparent;position: absolute;top:10px;}
+    .chosen-container.chosen-container-single .chosen-single > div > .bBtm{width: 0;height: 0;border: 6px solid red;border-top-color:#bad9fb;border-bottom: none;border-left-color: transparent;border-right-color: transparent;position: absolute;top:10px;}
+    /*下拉框*/
+    .chosen-container .chosen-drop{position: relative;height: 150px;}
+    
+    /*input框父级div*/
+    .chosen-container .chosen-drop .chosen-search{color:#bad9fb;font-size:12px;width: 100%;height: 36px;padding:3px 4px;}
+    /*input框*/
+    .chosen-container .chosen-drop .chosen-search > input{color:#bad9fb;font-size:14px;background:rgba(0,0,0,0);border:1px solid #bad9fb;width: 100%;height: 100%; }
+    /*ul父级*/
+    .chosen-container .chosen-drop .chosen-scroll{overflow: auto;width: 100%;height:calc(100% - 56px);}
+    .chosen-container .chosen-drop .chosen-results{overflow: hidden;}/*下拉框ul*/ 
+    /*下拉框li*/
+    .chosen-container .chosen-drop .chosen-results .active-result{color: #bad9fb;font-size:12px;padding-left: 5px;padding:5px;} 
+    /*搜索后提示框*/
+    .chosen-container .chosen-drop .chosen-results .no-results{color: #333;font-size:12px;background: #fff;}
+    /*鼠标划过样式*/
+    .chosen-container .chosen-drop .chosen-results .active-result:hover{background: orange;}
+
+    /*分页按钮div*/
+    .chosen-container .chosen-drop .chosen-paginate{height:20px;/*position:absolute;bottom:0;*/width: 100%;}
+    /*分页按钮样式*/
+    .chosen-container .chosen-drop .chosen-paginate .paginate-btn{font-size: 12px;color:#bad9fb;cursor: pointer;border:1px solid #bad9fb;line-height: 16px;display: inline-block;}
+    /*鼠标滑过样式*/
+    .chosen-container .chosen-drop .chosen-paginate .paginate-btn:hover{color:orange;background:#fff;}
+    /*分页后省略号标签*/
+    .chosen-container .chosen-drop .chosen-paginate > span > i{color:#bad9fb;}
+     /*分页禁用样式*/ 
+    .disabled{cursor: not-allowed!important;}
+
+/*滚动条样式:多选框*/
+        .chosen-scroll::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+            /*height: 10px;*/
+        }
+        .chosen-scroll::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            /*border-radius: 5px;*/
+            -webkit-box-shadow: inset 0 0 5px #ccc;
+            background: #ccc;
+        }
+        .chosen-scroll::-webkit-scrollbar-track{/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,1);
+            border-radius: 0;
+            background: rgba(0,0,0,1);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

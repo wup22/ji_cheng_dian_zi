@@ -19,7 +19,7 @@ function IesChosen(json){
 					<ul class="chosen-results"></ul>
 				</div>
 				<div class="chosen-paginate">
-					<a href="javascript:;" class="paginate-btn" id="${this.idName}-previous"><</a>
+					<a href="javascript:;" class="paginate-btn disabled" id="${this.idName}-previous"><</a>
 					<span></span>
 					<a href="javascript:;" class="paginate-btn" id="${this.idName}-next">></a>
 				</div>
@@ -43,13 +43,19 @@ IesChosen.prototype.init = function(){
 			// console.log(n)
 		})
 	}
-	
+	//创建分页按钮
 	this.page = Math.ceil(this.arr.length / this.pagelength)
 	let oSpan = this.oDiv2.find('.chosen-drop').find('.chosen-paginate').find('span')
-	for(let i = 0;i < this.page;i++){
-		$(`<a href="javascript:;" class="paginate-btn">${i+1}</a>`).appendTo(oSpan)
+	if(this.page < 10){
+		for(let i = 0;i < this.page;i++){
+			$(`<a href="javascript:;" class="paginate-btn">${i+1}</a>`).appendTo(oSpan)
+		}
+	}else{
+		for(let i = 0;i < 9;i++){
+			$(`<a href="javascript:;" class="paginate-btn">${i+1}</a>`).appendTo(oSpan)
+		}
+		$(`<i>...</i><a href="javascript:;" class="paginate-btn">${this.page}</a>`).appendTo(oSpan)
 	}
-
 	let oUl = this.oDiv2.find('.chosen-drop').find('.chosen-results');
 	for(let i = 0;i < this.pagelength;i++){
 		$(`<li class="active-result">${this.arr[i].name}</li>`).appendTo(oUl)
@@ -58,6 +64,8 @@ IesChosen.prototype.init = function(){
 	this.oDiv1.appendTo(this.id.parent())
 	this.id.appendTo(this.oDiv1)
 	this.oDiv2.appendTo(this.oDiv1)	
+	let oPageIndex = this.oDiv2.find('#'+this.idName+'-previous').next('span').children('.paginate-btn')
+	oPageIndex.eq(0).css('color','orange')
 }
 
 IesChosen.prototype.selectEvent = function(){
@@ -82,62 +90,99 @@ IesChosen.prototype.selectEvent = function(){
 		oA.find('div').find('b').removeClass().addClass('bBtm')
 		// console.log('bbb')
 	})
-	//上一页按钮
+	//获取上一页按钮
 	let oPrevious = this.oDiv2.find('#'+this.idName+'-previous')
+	//获取下一页按钮
+	let oNext = this.oDiv2.find('#'+this.idName+'-next')
+	//获取分页按钮
+	let oPageIndex = this.oDiv2.find('#'+this.idName+'-previous').next('span').children('.paginate-btn')
+	//上一页点击事件
 	oPrevious.click(()=>{
 		event.stopPropagation();
 		// console.log(this.index)
 		if(this.index == 0){
 			oNext.removeClass('disabled')
 			oPrevious.addClass('disabled')
+			oPageIndex.css('color','#bad9fb')
+			oPageIndex.eq(0).css('color','orange')
 			return
 		}else{
-			this.index--;
+			this.index--;			
+			if(this.index == 0){
+				oNext.removeClass('disabled')
+				oPrevious.addClass('disabled')
+				// console.log(this.index)
+			}else{
+				oPrevious.removeClass('disabled')
+				oNext.removeClass('disabled')
+			}
+			oPageIndex.css('color','#bad9fb')
+			oPageIndex.eq(this.index).css('color','orange')
 			let start = this.pagelength * this.index
 			let end = this.pagelength * (this.index + 1)
 			let arr2 = []
 			if(this.filterArr.length !== 0 && Input.val()!=''){
 				arr2 = this.filterArr.slice(start,end);
-			}else if(this.filterArr.length === 0 && Input.val()==''){
+				console.log('cc',this.filterArr.length,Input.val())
+			}else{
 				arr2 = this.arr.slice(start,end);
+				console.log('vv',this.filterArr.length,Input.val())
 			}
 			showLi(oLi,arr2)
-			oPrevious.removeClass('disabled')
-			oNext.removeClass('disabled')
 		}
 	})
-	//下一页按钮
-	let oNext = this.oDiv2.find('#'+this.idName+'-next')
+	//下一页点击事件
 	oNext.click(()=>{
 		event.stopPropagation();
 		// console.log(this.index)
 		if(this.index == this.page-1){
 			oPrevious.removeClass('disabled')
 			oNext.addClass('disabled')
+			oPageIndex.css('color','#bad9fb')
+			oPageIndex.eq(this.page-1).css('color','orange')
 			return
 		}else{
 			this.index++;
+			if(this.index == this.page-1){
+				oPrevious.removeClass('disabled')
+				oNext.addClass('disabled')				
+				console.log(this.index)
+			}else{
+				oPrevious.removeClass('disabled')
+				oNext.removeClass('disabled')
+			}
+			oPageIndex.css('color','#bad9fb')
+			oPageIndex.eq(this.index).css('color','orange')
 			let start = this.pagelength * this.index
 			let end = this.pagelength * (this.index + 1)
 			let arr2 = []
 			if(this.filterArr.length > 0 && Input.val()!=''){
 				arr2 = this.filterArr.slice(start,end);
 				// console.log('qq',this.filterArr.length,Input.val())
-			}else if(this.filterArr.length === 0 && Input.val()==''){
+			}else{
 				arr2 = this.arr.slice(start,end);
 				// console.log('ww',this.filterArr.length)
 			}
 			showLi(oLi,arr2)
-			oPrevious.removeClass('disabled')
-			oNext.removeClass('disabled')
-
 		}
 	})
 	//点击分页按钮
-	let oPageIndex = this.oDiv2.find('#'+this.idName+'-previous').next('span').children('.paginate-btn')
 	oPageIndex.click(()=>{
 		event.stopPropagation();
+		oPageIndex.css('color','#bad9fb')
 		this.index = oPageIndex.index(event.target)
+		oPageIndex.eq(this.index).css('color','orange')
+		if(this.index==0){
+			oNext.removeClass('disabled')
+			oPrevious.addClass('disabled')
+		}else if(this.index==this.page-1){
+			oPrevious.removeClass('disabled')
+			oNext.addClass('disabled')
+		}else /*if(this.index>0 && this.page>10)*/{
+			oPrevious.removeClass('disabled')
+			oNext.removeClass('disabled')
+		}
+		//截取数据展示
 		let start = this.pagelength * this.index
 		let end = this.pagelength * (this.index + 1)
 		let arr2 = [];
@@ -155,6 +200,8 @@ IesChosen.prototype.selectEvent = function(){
     		// console.log(event.target)
     	},
     	"input propertychange":function(){
+
+    		//过滤关键字
     		this.filterArr = this.arr.filter((item,index)=>{
     			// console.log(item)
     			let ss = item.name.toString()
@@ -166,20 +213,49 @@ IesChosen.prototype.selectEvent = function(){
     		})
     		// console.log(this.filterArr)
     		this.index = 0
+    		oNext.removeClass('disabled')
+			oPrevious.addClass('disabled')
+			oPageIndex.css('color','#bad9fb')
+			oPageIndex.eq(0).css('color','orange')
     		let start = this.pagelength * this.index
 			let end = this.pagelength * (this.index + 1)
 			let arr2 = this.filterArr.slice(start,end);
 			this.page = Math.ceil(this.filterArr.length / this.pagelength)
 			let oSpan = this.oDiv2.find('.chosen-drop').find('.chosen-paginate').find('span')
 			let len = this.page
-			oSpan.find('.paginate-btn').map(function(index,item){
-				// console.log('lll',index,item,len)
-				if(index >= len){
-					$(this).hide()
+			let oPage = oSpan.find('.paginate-btn')
+			if(len >= 10){
+				oPage.siblings('i').show()
+				oPage.last().show().html(len)
+				// console.log(len)
+			}else if(len < 9){
+				oPage.siblings('i').hide()
+				oPage.last().hide()
+				console.log()
+			}
+			for(let i = 0;i < 9;i++){
+				if(i >= len){
+					oPage.eq(i).hide()
 				}else{
-					$(this).html(index+1).show()
+					oPage.eq(i).html(i+1).show()
 				}
-			})
+				
+			}
+			/*oPage.map(function(index,item){
+				// console.log('lll',index,item,len)
+				if(index >= 10){
+					console.log('ddd')
+					return console.log('ddd')
+				}else{
+					if(index >= len){
+						$(this).hide()
+						console.log($(this))
+					}else{
+						$(this).html(index+1).show()
+					}
+				}
+				
+			})*/
 			showLi(oLi,arr2)
     	}.bind(this)
     })
@@ -193,8 +269,8 @@ IesChosen.prototype.selectEvent = function(){
 	
 }
 //展示切换li的文本
-function showLi(arr,arr2){
-	arr.map(function(index,item){
+function showLi(tagName,arr2){
+	tagName.map(function(index,item){
 		if(index >= arr2.length){
 			$(this).hide()
 		}else{
