@@ -13,12 +13,12 @@ Axios.interceptors.response.use(
 	    	// console.log('aa',config.data.data)
 	    	return config.data.data
 	    }else{
-	    	console.log('有错误',config.data.msg)
+	    	console.warn('有错误',config.data.msg)
 	    	// return config.data.msg
 	    }
 	    
   	},error =>{
-  		console.log(error)
+  		console.error(error)
   	}
 );
 

@@ -1,4 +1,4 @@
-let MyFooter = Vue.extend({
+let IesTabs = Vue.extend({
 	template:`<!-- tabs -->
 		<div class="wp_tabs" ref="wp_tabs" @click="rightNone">
 			<div class="wp_tabs_1">

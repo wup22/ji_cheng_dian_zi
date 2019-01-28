@@ -9,9 +9,9 @@
 		<script src="plugins/element-ui/lib/index.js"></script>
 		<script src="plugins/jquery-1.10.1.min.js"></script>
 		<!-- tabs组件 -->
-		<script src="components/tabs-2.js"></script>
+	
 		<script src="components/header.js"></script>
-		<script src="components/my-footer.js"></script>			
+		<script src="components/ies-tabs.js"></script>			
 		<link rel="stylesheet" href="plugins/element-ui/lib/theme-chalk/index.css">
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/index.css">
@@ -20,7 +20,6 @@
 	</head>
 	<body>
 		<div id="app">
-			<!-- <Tabs v-if="indexMenu.length > 0" :index-menu="indexMenu"/> -->
 			<div id="header" @click="rightNone">
 				<index-header 
 				 v-if="arr2.length > 0" 
@@ -29,7 +28,7 @@
 				 :v1="v1"
 				 @tabsadd="tabsData"
 				 @show="showIndex"></index-header>
-				<my-footer :tabs-a="tabs2" :v1="v1" @showtabs="showV1"></my-footer>
+				<ies-tabs :tabs-a="tabs2" :v1="v1" @showtabs="showV1"></ies-tabs>
 			</div>
 			
 		</div>
@@ -49,7 +48,7 @@ Vue.prototype.$ajaxPost = ajaxPost;
 		            img:'funcmenu_1.png',
 		            img_active:'funcmenu_1_active.png',
 		            first:'统计分析',
-		            isShow: false,
+		            // isShow: false,
 		            second:[
 		              {title:'电能质量历史数据',path:'html/Electricity-quality-history-data/index.html'},
 		             
@@ -59,7 +58,7 @@ Vue.prototype.$ajaxPost = ajaxPost;
 		            img:'funcmenu_2.png',
 		            img_active:'funcmenu_2_active.png',
 		            first:'综合分析',
-		            isShow: false,
+		            // isShow: false,
 		            second:[
 		              {title:'异常综合分析',path:'html/Abnormal-synthesis-analyze/index.html'},
 		           
@@ -69,7 +68,7 @@ Vue.prototype.$ajaxPost = ajaxPost;
 		            img:'funcmenu_3.png',
 		            img_active:'funcmenu_3_active.png',
 		            first:'电能质量分析',
-		            isShow: false,
+		            // isShow: false,
 		            second:[
 		              {title:'重要负荷分析',path:'html/Important-load-analysis/index.html'},
 		              {title:'异常事件统计',path:'html/Abnormal-event-statistics/index.html'},
@@ -80,7 +79,7 @@ Vue.prototype.$ajaxPost = ajaxPost;
 		            img:'funcmenu_4.png',
 		            img_active:'funcmenu_4_active.png',
 		            first:'分析与预测',
-		            isShow: false,
+		            // isShow: false,
 		            second:[
 		              {title:'线损实时分析',path:'html/Line-harm-real-time-analyze/index.html'},
 		              {title:'线损历史分析',path:'html/Line-harm-history-analyze/index.html'} 
@@ -99,8 +98,8 @@ Vue.prototype.$ajaxPost = ajaxPost;
 		beforeCreate(){			
 			/*this.$axiosGet('/getMenu',(res)=>{
 				this.indexMenu = res;
-				// console.log('首页',this.indexMenu)
-			});	*/
+				console.log('首页',this.indexMenu)
+			});*/	
 				
 		},
 		methods:{
@@ -127,7 +126,7 @@ Vue.prototype.$ajaxPost = ajaxPost;
 	        	this.v1 = val
 	        }
 		},
-		components:{IndexHeader,MyFooter}
+		components:{IndexHeader,IesTabs}
 
 	});
 	

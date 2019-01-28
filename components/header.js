@@ -11,7 +11,7 @@ let IndexHeader = Vue.extend({
 				@mouseleave="native(--index,item)"
 				>					
 					<div class="explain">{{item.first}}</div>
-					<ul class="menu_nav" v-show="item.isShow">
+					<ul class="menu_nav" v-show="isShow==index">
 						<li v-for="itemMenu,indexIndex in item.second" :key="indexIndex"
 						ref="menu_nav_1" 
 						class="menu_nav_1"
@@ -48,6 +48,7 @@ let IndexHeader = Vue.extend({
 		},
 		data(){
 			return{
+				isShow:false,
 				editableTabsValue2: 1,
 		    	tabIndex: 1
 			}	
@@ -56,11 +57,13 @@ let IndexHeader = Vue.extend({
 		methods:{
 			change(index,item){
 				event.target.style.backgroundImage = `url(img/funcmenu/funcmenu_${++index}_active.png?v=1.02)`;
-				item.isShow = true;			
+				// item.isShow = true;	
+				this.isShow = index;		
 			},
 			native(index,item){
 				event.target.style.backgroundImage = `url(img/funcmenu/funcmenu_${++index}.png?v=1.02)`
-				item.isShow = false;
+				// item.isShow = false;
+				this.isShow = !index;
 			},
 			changeI(index,indexIndex){
 				event.target.style.backgroundColor = "orange";
@@ -73,12 +76,12 @@ let IndexHeader = Vue.extend({
 					var titleT = innerHtml.title; //菜单文本
 				// console.log('0=>',targetName);
 				var iframeID = "";
-				let _this = this;
-				this.tabs.map(function(item, index){
+				
+				this.tabs.map((item, index)=>{
 					var tName = item.title;
 					if(titleT == tName){
-						iframeID = item.name;
-						_this.v1 = index;
+						iframeID = item.name;						
+						this.$emit("show",index)
 					}
 				});				
 				if(iframeID == ""){						

@@ -17,7 +17,7 @@
     .chosen-container.chosen-container-single .chosen-single > div > .bTop{width: 0;height: 0;border: 6px solid red;border-bottom-color: #bad9fb;border-top: none;border-left-color: transparent;border-right-color: transparent;position: absolute;top:10px;}
     .chosen-container.chosen-container-single .chosen-single > div > .bBtm{width: 0;height: 0;border: 6px solid red;border-top-color:#bad9fb;border-bottom: none;border-left-color: transparent;border-right-color: transparent;position: absolute;top:10px;}
     /*下拉框*/
-    .chosen-container .chosen-drop{position: relative;}
+    .chosen-container .chosen-drop{position: relative;height: 150px;}
     
     /*input框父级div*/
     .chosen-container .chosen-drop .chosen-search{color:#bad9fb;font-size:12px;width: 100%;height: 36px;padding:3px 4px;}
@@ -34,8 +34,7 @@
     .chosen-container .chosen-drop .chosen-results .active-result:hover{background: orange;}
 
     /*分页按钮div*/
-    .chosen-container .chosen-drop .chosen-paginate{height:20px;position:relative;width: 100%;padding-right:10px;}
-    .chosen-container .chosen-drop .chosen-paginate > a:last-of-type{position:absolute;right:0;top:3px;}
+    .chosen-container .chosen-drop .chosen-paginate{height:20px;/*position:absolute;bottom:0;*/width: 100%;}
     /*分页按钮样式*/
     .chosen-container .chosen-drop .chosen-paginate .paginate-btn{font-size: 12px;color:#bad9fb;cursor: pointer;border:1px solid #bad9fb;line-height: 16px;display: inline-block;}
     /*鼠标滑过样式*/

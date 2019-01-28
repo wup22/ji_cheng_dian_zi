@@ -10,12 +10,12 @@
 	<link type="text/css" rel="stylesheet" href="css/index.css">
 	<!-- 字体图标 -->
 	<link rel="stylesheet" href="../../plugins/font-awesome-4.7.0/css/font-awesome.css">
-	<!-- chosen插件 -->
-	<!-- <script src="../../plugins/chosen/js/chosen.jquery.js"></script>
-	<link rel="stylesheet" href="../../plugins/chosen/css/chosen.css"> -->
-	
+
 	<script src="../../js/ies-chosen/ies-select.js"></script>	
 	<link rel="stylesheet" href="../../js/ies-chosen/ies-select.css">
+	
+	<!-- <script src="../../js/ies-js-chosen/ies-select.js"></script>	
+	<link rel="stylesheet" href="../../js/ies-js-chosen/ies-select.css"> -->
 	
 </head>
 <body>
@@ -101,13 +101,44 @@ $(function(){
 		{name:49,id:49},
 		{name:50,id:50},
 		{name:51,id:51},
-		{name:52,id:52}
+		{name:52,id:52},
+		{name:53,id:53},
+		{name:54,id:54},
+		{name:55,id:55},
+		{name:56,id:56},
+		{name:57,id:57},
+		{name:58,id:58},
+		{name:59,id:59},
+		{name:60,id:60},
+		{name:61,id:61},
+		{name:62,id:62},
+		{name:63,id:63},
+		{name:64,id:64},
+		{name:65,id:65},
+		{name:66,id:66},
+		{name:67,id:67},
+		{name:68,id:68},
+		{name:69,id:69},
+		{name:70,id:70},
+		{name:71,id:71},
+		{name:72,id:72},
+		{name:73,id:73},
+		{name:74,id:74},
+		{name:75,id:75},
+		{name:76,id:76}
 	];
 
 	let ies = new IesChosen({
 		id:'#sss',
 		data:arr,
-		// pagelength:10
+		// pagelength:12,
+		ajax:function(txt){ 
+			console.log('txt',txt)
+			let url = 'http://192.168.21.106:8080/bspower/a/getMenu?name='+txt;
+			$.get(url,function(data){
+				console.log('wwwwwwww',data)
+			})  
+		}
 	})
 })
 	

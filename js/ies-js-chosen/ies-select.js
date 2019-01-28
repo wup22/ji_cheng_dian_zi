@@ -2,7 +2,6 @@ function IesChosen(json){
 	this.id = $(json.id);
 	this.idName = json.id.substring(1,json.id.length)
 	this.pagelength = json.pagelength!=undefined?json.pagelength : 5;
-	this.ajax = json.ajax;
 	this.oLi = $(json.id).children('option')
 	this.oDiv1 = $(`<div class="input-group"></div>`)
 	this.oDiv2 = $(`<div class="chosen-container chosen-container-single" style="width:100%" title="" id="byRtuModelSel_3_chosen">
@@ -36,6 +35,9 @@ function IesChosen(json){
 	this.selectEvent();
 	
 }  
+IesChosen.prototype.createEle = function(){
+	
+}
 
 IesChosen.prototype.init = function(){
 	this.id.css('display' , 'none');
@@ -44,10 +46,6 @@ IesChosen.prototype.init = function(){
 			this.arr.push({name:n.value,id:n.innerHTML})
 			// console.log(n)
 		})
-	}
-	//固定下拉框高度,下拉<li>出现滚动条
-	if(this.pagelength > 10){
-		this.oDiv2.find('.chosen-drop').css('height','240px')
 	}
 	//创建分页按钮
 	this.page = Math.ceil(this.arr.length / this.pagelength)
@@ -85,9 +83,6 @@ IesChosen.prototype.selectEvent = function(){
 		event.stopPropagation();
 		oA.next('.chosen-drop').toggle() 
 		oA.find('div').find('b').removeClass().addClass('bTop')
-		if(oA.next('.chosen-drop').css('display')=='none'){
-			oA.find('div').find('b').removeClass().addClass('bBtm')
-		}
 		// console.log('aaa')
 	})
 	//点击选中li元素
@@ -337,16 +332,7 @@ IesChosen.prototype.selectEvent = function(){
 		
 			showLi(oLi,arr2)
     	}.bind(this)
-    	
     })
-    //选择框内容改变事件
-	oA.find('span').bind('DOMNodeInserted', (e)=> {
-		if(typeof this.ajax == 'function'){
-			this.ajax(e.target.innerHTML) 
-			// console.log('span')
-		}
-	　　
-	});
 	//点击body隐藏下拉
 	this.oDiv1.parents('body').click(()=>{
 		event.stopPropagation();
@@ -367,6 +353,21 @@ function showLi(tagName,arr2){
 	}) 
 }
 
-
+//根据id获取对象
+function $(id){
+	return document.getElementById(id);
+}
+//根据标签名获取指定对象下的所有的元素。
+function $get(obj,tagName){
+	if(typeof obj == 'object'){
+		return obj.getElementsByTagName(tagName);
+	}else if(typeof obj == 'string' && $(obj)){
+		return $(obj).getElementsByTagName(tagName);
+	}
+}
+//创建对象
+function $create(tagName){
+	return document.createElement(tagName);
+}
 
 
